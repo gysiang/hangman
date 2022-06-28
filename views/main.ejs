@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hangman</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap");
+    </style>
+  </head>
+  <body class="col-12 bg-color">
+    <div class="mainContainer">
+      <br />
+      <div class="text-center">
+        <br /><br />
+        <h1>Animal Crossing</h1>
+        <h3>Guess the Word!</h3>
+        <img
+          class="text-center"
+          height="200"
+          width:auto
+          src="https://image.jimcdn.com/app/cms/image/transf/dimension=1070x10000:format=png/path/s2d75ac45bde449f0/image/ie1a596faec4848b8/version/1560528561/image.png"
+        />
+        <br /><br />
+      </div>
+      <div id="mainButtonsDiv" class="d-flex flex-column">
+        <div class="col"></div>
+        <div class="col text-center">
+          <button
+            id="mainSignUpBtn"
+            class="button rounded-5"
+            onclick="location.href='/signup'"
+          >
+            Sign Up
+          </button>
+          <button
+            id="mainLoginBtn"
+            class="button rounded-5"
+            onclick="location.href='/login'"
+          >
+            Login
+          </button>
+        </div>
+        <div class="col"></div>
+      </div>
+    </div>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/js-loading-overlay@1.1.0/dist/js-loading-overlay.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

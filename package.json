@@ -1,0 +1,32 @@
+{
+  "name": "hangman",
+  "version": "1.0.0",
+  "description": "2 Player Hangman Game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gysiang/hangman.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gysiang/hangman/issues"
+  },
+  "homepage": "https://github.com/gysiang/hangman#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.1",
+    "jssha": "^3.2.0",
+    "pg": "^8.7.3",
+    "sequelize": "^6.20.1",
+    "websocket": "^1.0.34"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.4.1"
+  }
+}

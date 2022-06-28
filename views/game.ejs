@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hangman</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="bg-color">
+    <div id="mainContainer" class="d-flex justify-content-center">
+      <div class="gameContainer">
+        <br />
+        <h1 class="text-center">Word Guessing!</h1>
+        <br />
+        <div id="chancesContainer d-flex flex-row">
+          <h3 class="font-normal text-center">No of Chances</h3>
+          <div id="chanceImageDiv" class="mx-2"></div>
+        </div>
+        <br />
+        <br />
+        <div id="wordGuessContainer">
+          <h3 class="text-center">Random Word</h3>
+          <p id="definition" class="text-center"><%= definition %></p>
+          <div
+            id="wordGuess"
+            class="d-flex flex-row justify-content-center"
+          ></div>
+        </div>
+        <br />
+        <div id="feedbackContainer" class="border border-dark rounded-3"></div>
+        <br />
+        <div id="letterContainer" class="letter-container"></div>
+      </div>
+    </div>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/js-loading-overlay@1.1.0/dist/js-loading-overlay.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/game.js"></script>
+    <script>
+      // keeps track of the no of right guesses
+      // will modify to keep this inside game model
+      // length of the game
+      let dasheslength = <%= dashlength%>;
+      // save the chancesLeft as a variable
+      let chancesLeft = <%= chances %>;
+
+      const chanceImgDiv = document.getElementById("chanceImageDiv");
+      const wordGuessDiv = document.getElementById("wordGuess");
+
+      const noOfChances = (input) => {
+        for (let i = 0; i < input; i += 1) {
+          let chance_img = document.createElement("IMG");
+          chance_img.setAttribute("src", "/images/apple.png");
+          chance_img.setAttribute("width", "45px");
+          chanceImgDiv.appendChild(chance_img);
+        }
+      };
+      console.log("<%= message %>");
+      noOfChances(chancesLeft);
+
+      const generateDashes = (length) => {
+        for (let i=0;i<length; i+=1){
+        const dash = document.createElement("span");
+        dash.id = i;
+        dash.classList.add("dashes");
+        dash.innerHTML = "_" + "&nbsp;";
+        wordGuessDiv.append(dash);
+        }
+      };
+       generateDashes(<%= dashlength %>);
+    </script>
+  </body>
+</html>
