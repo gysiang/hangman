@@ -50,18 +50,18 @@
       // save the chancesLeft as a variable
       let chancesLeft = <%= chances %>;
 
-      const chanceImgDiv = document.getElementById("chanceImageDiv");
       const wordGuessDiv = document.getElementById("wordGuess");
+      const ImgDiv = document.getElementById("chanceImageDiv");
 
       const noOfChances = (input) => {
+        // ImgDiv.innerHTML = "";
         for (let i = 0; i < input; i += 1) {
           let chance_img = document.createElement("IMG");
           chance_img.setAttribute("src", "/images/apple.png");
           chance_img.setAttribute("width", "45px");
-          chanceImgDiv.appendChild(chance_img);
+          ImgDiv.appendChild(chance_img);
         }
       };
-      console.log("<%= message %>");
       noOfChances(chancesLeft);
 
       const generateDashes = (length) => {

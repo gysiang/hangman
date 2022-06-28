@@ -1,6 +1,9 @@
 const letterContainer = document.getElementById("letterContainer");
 const feedbackContainer = document.getElementById("feedbackContainer");
+const lineBreak = document.createElement('br');
+
 let rightGuesses = 0;
+
 
 const generateLetterButtons = ()=>{
  //For creating letter buttons
@@ -22,22 +25,30 @@ const generateLetterButtons = ()=>{
       }
       const checkLetter = await axios.post('/game/check', data);
       console.log('send a post to check letter', checkLetter)
-      if (checkLetter.data[result] == true) {
+      console.log(checkLetter.data)
+      if (checkLetter.data != true) {
+          // If false, append the message. 'You got it wrong.' to feedback div
+          feedbackContainer.append(lineBreak);
+          feedbackContainer.append(`You got it wrong`);
+          // reduce 1 in the noOfChances variable
+          chancesLeft -=1;
+          ImgDiv.innerHTML = "";
+          noOfChances(chancesLeft);
+      } 
+      if (checkLetter.data.result == true){
         // If true, append the message. 'You got it!' to feedback div
-          feedbackContainer.appendChild('You got it!');
+          feedbackContainer.innerHTML= "";
+          feedbackContainer.append('You got it!');
         // check the wincount(global variable) add 1, 
           rightGuesses +=1;
-        // if wincount == dasheslength, win the game
-        let index = checkLetter.data[index];
+        let indexArray = checkLetter.data.index
         // select the right span from the id and replace it with the letter clicked
-        const spanToReplace = document.getElementById(`${index}`);
-        spanToReplace.innerHTML=`${button.innerText}&nbsp;`;
-      } else {
-          // If false, append the message. 'You got it wrong.' to feedback div
-          feedbackContainer.appendChild('You got it wrong')
-          // reduce 1 in the noOfChances variable
-          noOfChances =-1;
-      }
+        indexArray.forEach((element) => {
+          let selectDash = document.getElementById(`${element}`)
+          console.log(selectDash);
+          selectDash.innerHTML=`${button.innerText}&nbsp;`;
+        })
+      } 
     })
     letterContainer.append(button);
   }
