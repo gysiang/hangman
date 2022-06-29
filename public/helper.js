@@ -8,8 +8,4 @@ const getHash = (input) =>{
 
   return shaObj.getHash('HEX');
 }
-
-
-
-
 module.exports = getHash

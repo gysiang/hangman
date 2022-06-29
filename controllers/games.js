@@ -15,6 +15,7 @@ class gameController {
       const { game_mode , difficulty_id } = req.body
       console.log("creating a new game");
 
+    // if (game_mode == "onePlayer") {
     const chosenWord = await axios
       .get('https://random-words-api.vercel.app/word')
       .then((result) => {
@@ -23,20 +24,44 @@ class gameController {
 
       const jsonChosenWord = JSON.parse(chosenWord)
       console.log('generating word',jsonChosenWord.word)
-
+    
       const newGame = await this.model.create({
           difficulty_id,
           game_mode,
           chosen_word: jsonChosenWord.word,
           definition: jsonChosenWord.definition,
       });
-
-      console.log(newGame);
       console.log(newGame.id)
+      const data = {
+        message: "success",
+        id: newGame.id
+      }
       res.cookie('gameID',newGame.id);
-      res.send("success");
-    };
+      res.send(data);
+    } 
+    // else {
 
+    //   const newGame = await this.model.create({
+    //       difficulty_id,
+    //       game_mode,
+    //       chosen_word: jsonChosenWord.word,
+    //       definition: jsonChosenWord.definition,
+    //   });
+      
+    //   const getTwoPlayerGames = await this.model.findAll({
+    //       where: {
+    //         game_mode: twoPlayer,
+    //         winner_id: '',
+    //       },
+    //   })
+    //   const data = {
+    //     message: "success",
+    //     games: getTwoPlayerGames,
+    //   }
+    //   res.render("gamelobby", data)
+      // }
+    // };
+  
     async loadGame (req,res){
       try {
       const gameID = req.cookies.gameID;
@@ -49,9 +74,6 @@ class gameController {
           raw:true,
         }]
      })
-      // console.log(JSON.stringify(game.games[0].chosen_word));
-      // console.log(JSON.stringify(game.games[0].definition));
-      // console.log(JSON.stringify(game.chances));
 
       const chosenWordLength = (JSON.stringify(game.games[0].chosen_word)).length
 
@@ -80,7 +102,6 @@ class gameController {
           player1_id,
           player1_guess,
       });
-    console.log(newMove);
     // do a request to get the chosen word
      const word = await this.model.findOne(
         { 
@@ -96,7 +117,7 @@ class gameController {
     // compare the userguess to the letters in array
     if (splitWord.indexOf(player1_guess) != -1){
       // if not found, return false
-
+      // function to include all the index matched to the array
       const indexOfAll = (arr, val) => arr.reduce((acc, el, i) => (el === val ? [...acc, i] : acc), []);
 
       const indexArray = indexOfAll(splitWord, player1_guess);
@@ -113,8 +134,23 @@ class gameController {
       }
   }
 
-    async checkWin(req,res) {
-
+    async chosenword(req,res) {
+      const { gameID } = req.cookies;
+      try {
+        const word = await this.model.findOne(
+        { 
+          where: {  id : gameID },
+          attributes: ['chosen_word'],
+          raw:true,
+        })
+        const data = {
+          word: (word.chosen_word),
+        }
+        console.log(data);
+        res.send(data);
+      } catch(error){
+        console.log(error);
+      }
   }
 }
 module.exports = gameController;

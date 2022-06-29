@@ -1,9 +1,67 @@
+// const socket = io("http://localhost:8000/");
+
+// // receiving others moves
+// socket.on('move', ((data) => {
+//     console.log('I HAVE RECIEVED A Move!', data)
+//     let playerid = data[0]
+//     let playermove = data[1]
+//     console.log(playerid, playermove)
+// }));
+
 const letterContainer = document.getElementById("letterContainer");
 const feedbackContainer = document.getElementById("feedbackContainer");
+const gameContainer = document.getElementById("gameContainer");
 const lineBreak = document.createElement('br');
 
 let rightGuesses = 0;
 
+const generateLoseGameContainer = async () => {
+    const result = await axios.get("/game/word"); 
+    console.log(result)
+    gameContainer.innerHTML = "";
+    const resultHeader = document.createElement("h3");
+    const answerHeader = document.createElement("h3");
+    gameContainer.classList.add("d-flex","flex-column","justify-content-center","align-items-center");
+    answerHeader.innerText = `The answer is ${result.data.word}`
+    resultHeader.innerText=`You Lose!`
+    resultHeader.classList.add("font-normal");
+    const restartBtn = document.createElement("btn");
+    restartBtn.classList.add("btn", "btn-primary");
+    restartBtn.innerText='Restart Game'
+    restartBtn.addEventListener("click", ()=>{
+      window.location = "/game";
+    })
+    gameContainer.append(lineBreak);
+    gameContainer.append(resultHeader);
+    gameContainer.append(lineBreak);
+    gameContainer.append(answerHeader);
+    gameContainer.append(lineBreak);
+    gameContainer.append(restartBtn);
+};
+
+const generateWinGameContainer = async () => {
+    const result = await axios.get("/game/word"); 
+    console.log(result)
+    gameContainer.innerHTML = "";
+    const resultHeader = document.createElement("h3");
+    const answerHeader = document.createElement("h3");
+    gameContainer.classList.add("d-flex","flex-column","justify-content-center","align-items-center");
+    answerHeader.innerText = `The answer is ${result.data.word}`
+    resultHeader.innerText=`You Win!`
+    resultHeader.classList.add("font-normal");
+    const restartBtn = document.createElement("btn");
+    restartBtn.classList.add("btn", "btn-primary");
+    restartBtn.innerText='Restart Game'
+    restartBtn.addEventListener("click", ()=>{
+      window.location = "/game";
+    })
+    gameContainer.append(lineBreak);
+    gameContainer.append(resultHeader);
+    gameContainer.append(lineBreak);
+    gameContainer.append(answerHeader);
+    gameContainer.append(lineBreak);
+    gameContainer.append(restartBtn);
+};
 
 const generateLetterButtons = ()=>{
  //For creating letter buttons
@@ -25,7 +83,7 @@ const generateLetterButtons = ()=>{
       }
       const checkLetter = await axios.post('/game/check', data);
       console.log('send a post to check letter', checkLetter)
-      console.log(checkLetter.data)
+
       if (checkLetter.data != true) {
           // If false, append the message. 'You got it wrong.' to feedback div
           feedbackContainer.append(lineBreak);
@@ -34,6 +92,9 @@ const generateLetterButtons = ()=>{
           chancesLeft -=1;
           ImgDiv.innerHTML = "";
           noOfChances(chancesLeft);
+          if (chancesLeft == 0){
+            generateLoseGameContainer();
+          }
       } 
       if (checkLetter.data.result == true){
         // If true, append the message. 'You got it!' to feedback div
@@ -48,10 +109,15 @@ const generateLetterButtons = ()=>{
           console.log(selectDash);
           selectDash.innerHTML=`${button.innerText}&nbsp;`;
         })
+        if (rightGuesses == dasheslength){
+          generateWinGameContainer();
+        }
       } 
     })
     letterContainer.append(button);
   }
 };
 
+
 generateLetterButtons();
+

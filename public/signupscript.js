@@ -24,7 +24,7 @@ signupBtn.addEventListener('click', async ()=>{
     console.log(result);
     // if signup okay then load the game options
     if (result.data = "success"){
-      window.location.href = '/game';
+      window.location = '/game';
     }
   
     } catch(error) {
@@ -35,23 +35,4 @@ signupBtn.addEventListener('click', async ()=>{
     }
 })
 
-const userInput = () => {
-    for (let i = 65; i < 91; i++) {
-    let button = document.createElement("button");
-    button.classList.add("letters");
-    //Number to ASCII[A-Z]
-    button.innerText = String.fromCharCode(i);
-    button.addEventListener("onclick", ()=> {
-      button.disabled = true;
-    })
-    letterContainer.append(button);
-  }
-}
-const chanceImgDiv = document.getElementById("chanceImageDiv")
-const chancesImage = (input) => {
-  for (let i=0; i< input; i+=1){
-    let chance_img = document.createElement("IMG");
-    chance_img.setAttribute("src", "images/apple.png");
-    chanceImgDiv.appendChild(chance_img);
-  }
-}
+

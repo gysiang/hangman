@@ -66,9 +66,9 @@ gameStartBtn.addEventListener('click', async ()=>{
   console.log(data);
 
   // do a axios.post to /newgame
-  const result = await axios.post("/game/newgame", data);
+  const result = await axios.post("/game/options", data);
   console.log('result',result.data);
-  if (result.data == "success"){
-      window.location.href = "/game/start";
+  if (result.data.message == "success"){
+      window.location.href = `/game/${result.data.id}`;
   }
 });

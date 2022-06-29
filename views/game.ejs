@@ -9,7 +9,7 @@
   </head>
   <body class="bg-color">
     <div id="mainContainer" class="d-flex justify-content-center">
-      <div class="gameContainer">
+      <div id="gameContainer" class="gameContainer">
         <br />
         <h1 class="text-center">Word Guessing!</h1>
         <br />
@@ -54,7 +54,6 @@
       const ImgDiv = document.getElementById("chanceImageDiv");
 
       const noOfChances = (input) => {
-        // ImgDiv.innerHTML = "";
         for (let i = 0; i < input; i += 1) {
           let chance_img = document.createElement("IMG");
           chance_img.setAttribute("src", "/images/apple.png");

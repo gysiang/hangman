@@ -24,6 +24,7 @@
     "jssha": "^3.2.0",
     "pg": "^8.7.3",
     "sequelize": "^6.20.1",
+    "socket.io-client": "^4.5.1",
     "websocket": "^1.0.34"
   },
   "devDependencies": {

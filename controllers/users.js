@@ -35,7 +35,7 @@ class userController {
             });
             console.log(newUser);
             res.cookie('loggedin', getHash(newUser.id));
-            res.cookie('userid', newUser.id);
+            res.cookie('userID', newUser.id);
             res.send("success");
             }
         } 
@@ -64,7 +64,7 @@ class userController {
       const hashedPassword = getHash(password);
 
       if (hashedPassword === user.password){
-        res.cookie("login", getHash(user.id));
+        res.cookie("loggedin", getHash(user.id));
         res.cookie("userID", user.id);
         res.send('success');
       } else {
@@ -81,7 +81,7 @@ class userController {
     logout (req,res) {
       res.clearCookie("loggedin");
       res.clearCookie("gameID");
-      res.clearCookie("userid");
+      res.clearCookie("userID");
       res.redirect("/");
     }
 }
