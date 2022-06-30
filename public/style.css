@@ -2,6 +2,10 @@
   background-color: #9dffb0;
 }
 
+.bg-color-cyan {
+  background-color: #81f1f7;
+}
+
 .button {
   cursor: pointer;
   outline: none;
@@ -37,17 +41,22 @@
 }
 
 h1 {
-  font-family: "M PLUS Rounded 1c";
+  font-family: M PLUS Rounded 1c;
   font-weight: 800;
 }
 
 h3 {
-  font-family: "M PLUS Rounded 1c";
+  font-family: M PLUS Rounded 1c;
+  font-weight: 500;
+}
+
+.font-heavy {
+  font-family: M PLUS Rounded 1c;
   font-weight: 500;
 }
 
 .font-normal {
-  font-family: "M PLUS Rounded 1c";
+  font-family: M PLUS Rounded 1c;
   font-weight: 400;
 }
 
@@ -119,4 +128,3 @@ h3 {
   background-color: whitesmoke;
   border-radius: 0.6em;
 }
-

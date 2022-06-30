@@ -3,3 +3,7 @@
 
 # Dependency directories
 node_modules/
+
+# Mp3 File
+sounds/
+

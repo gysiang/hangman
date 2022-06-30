@@ -15,7 +15,6 @@ class gameController {
       const { game_mode , difficulty_id } = req.body
       console.log("creating a new game");
 
-    // if (game_mode == "onePlayer") {
     const chosenWord = await axios
       .get('https://random-words-api.vercel.app/word')
       .then((result) => {
@@ -90,7 +89,7 @@ class gameController {
       }
     }
 
-  async checkLetter(req,res){
+    async checkLetter(req,res){
 
     const { player1_guess } = req.body;
     const player1_id = req.cookies.userID;
@@ -135,6 +134,7 @@ class gameController {
   }
 
     async chosenword(req,res) {
+      console.log('hello')
       const { gameID } = req.cookies;
       try {
         const word = await this.model.findOne(
@@ -152,5 +152,21 @@ class gameController {
         console.log(error);
       }
   }
+
+    async setWinner(req,res) {
+        const { gameID,  } = req.cookies;
+        const { resultID } = req.body;
+        console.log(resultID);
+        const updateWinner = await this.model.update(
+          {
+            winner_id: resultID,
+          },
+          {
+            where: {id:gameID }
+          }
+        );
+        console.log('updating game model with user id')
+        console.log(updateWinner);
+      }
 }
 module.exports = gameController;

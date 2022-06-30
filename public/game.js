@@ -1,5 +1,6 @@
 // const socket = io("http://localhost:8000/");
 
+
 // // receiving others moves
 // socket.on('move', ((data) => {
 //     console.log('I HAVE RECIEVED A Move!', data)
@@ -16,6 +17,7 @@ const lineBreak = document.createElement('br');
 let rightGuesses = 0;
 
 const generateLoseGameContainer = async () => {
+    console.log('hello')
     const result = await axios.get("/game/word"); 
     console.log(result)
     gameContainer.innerHTML = "";
@@ -26,7 +28,7 @@ const generateLoseGameContainer = async () => {
     resultHeader.innerText=`You Lose!`
     resultHeader.classList.add("font-normal");
     const restartBtn = document.createElement("btn");
-    restartBtn.classList.add("btn", "btn-primary");
+    restartBtn.classList.add("button", "mx-2","pt-3","text-center");
     restartBtn.innerText='Restart Game'
     restartBtn.addEventListener("click", ()=>{
       window.location = "/game";
@@ -50,7 +52,7 @@ const generateWinGameContainer = async () => {
     resultHeader.innerText=`You Win!`
     resultHeader.classList.add("font-normal");
     const restartBtn = document.createElement("btn");
-    restartBtn.classList.add("btn", "btn-primary");
+    restartBtn.classList.add("button", "mx-2","pt-3","text-center");
     restartBtn.innerText='Restart Game'
     restartBtn.addEventListener("click", ()=>{
       window.location = "/game";
@@ -93,7 +95,12 @@ const generateLetterButtons = ()=>{
           ImgDiv.innerHTML = "";
           noOfChances(chancesLeft);
           if (chancesLeft == 0){
+            console.log('you lose')
             generateLoseGameContainer();
+            // const data = {
+            //   resultID: 0,
+            // }
+            // await axios.put('/game/setWinner', data)
           }
       } 
       if (checkLetter.data.result == true){
@@ -111,6 +118,12 @@ const generateLetterButtons = ()=>{
         })
         if (rightGuesses == dasheslength){
           generateWinGameContainer();
+          // const data = {
+          //     resultID: document.cookie.gameID,
+          // }
+          // console.log(data);
+          // console.log('saving user id as result');
+          // await axios.put('/game/setWinner',  data)
         }
       } 
     })

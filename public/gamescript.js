@@ -1,21 +1,21 @@
 const onePlayerOption = document.getElementById("onePlayer");
-const twoPlayerOption = document.getElementById("twoPlayer");
+// const twoPlayerOption = document.getElementById("twoPlayer");
 
 onePlayerOption.addEventListener('click', ()=> {
   console.log('one player btn is clicked')
   onePlayerOption.classList.add("active");
-  twoPlayerOption.classList.add("disabled");
-  twoPlayerOption.classList.remove("active");
-  console.log('one player btn is disabled')
+  // twoPlayerOption.classList.add("disabled");
+  // twoPlayerOption.classList.remove("active");
+  console.log('one player btn is selected')
 });
 
-twoPlayerOption.addEventListener('click', ()=> {
-  console.log('two player btn is clicked')
-  onePlayerOption.classList.add("disabled");
-  onePlayerOption.classList.remove("active");
-  twoPlayerOption.classList.add("active");
-  console.log('two player btn is disabled')
-});
+// twoPlayerOption.addEventListener('click', ()=> {
+//   console.log('two player btn is clicked')
+//   onePlayerOption.classList.add("disabled");
+//   onePlayerOption.classList.remove("active");
+//   twoPlayerOption.classList.add("active");
+//   console.log('two player btn is disabled')
+// });
 
 const easyModeBtn = document.getElementById("easyMode");
 const normalModeBtn = document.getElementById("normalMode");

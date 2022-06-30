@@ -7,17 +7,17 @@ class GameRouter {
   }
 
   router() {
-    router
       // get game options page
-      .get("/",this.controller.gameOptions.bind(this.controller))
+      router.get("/",this.controller.gameOptions.bind(this.controller))
       // post game options to start new game
-      .post("/options",this.controller.newGame.bind(this.controller))
-      // get the page to play the game
-      .get("/:id",this.controller.loadGame.bind(this.controller))
+      router.post("/options",this.controller.newGame.bind(this.controller))
       // update the moves
-      .post("/check",this.controller.checkLetter.bind(this.controller ))
+      router.post("/check",this.controller.checkLetter.bind(this.controller ))
       // get the word to display it endgame
-      .get("/word",this.controller.chosenword.bind(this.controller ))
+      router.get("/word",this.controller.chosenword.bind(this.controller ))
+      router.put("/setwinner",this.controller.setWinner.bind(this.controller ))
+       // get the page to play the game
+      router.get("/:id",this.controller.loadGame.bind(this.controller))
     return router;
   }
 }
