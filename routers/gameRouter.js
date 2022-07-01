@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const loginCheck = require("../public/helper")
 
 class GameRouter {
   constructor(controller) {
@@ -8,7 +9,7 @@ class GameRouter {
 
   router() {
       // get game options page
-      router.get("/",this.controller.gameOptions.bind(this.controller))
+      router.get("/", this.controller.gameOptions.bind(this.controller))
       // post game options to start new game
       router.post("/options",this.controller.newGame.bind(this.controller))
       // update the moves

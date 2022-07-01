@@ -78,11 +78,11 @@ class userController {
     }
   }
 
-    logout (req,res) {
+  logout (req,res) {
       res.clearCookie("loggedin");
       res.clearCookie("gameID");
       res.clearCookie("userID");
-      res.redirect("/");
+      res.send('success')
     }
 }
 

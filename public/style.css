@@ -128,3 +128,19 @@ h3 {
   background-color: whitesmoke;
   border-radius: 0.6em;
 }
+
+.mute {
+  background-color: black;
+  border: none;
+  background-image: url("images/no-sound.png");
+  background-size: cover;
+  cursor: pointer;
+}
+
+.unmute {
+  background-color: black;
+  border: none;
+  background-image: url("images/sound.png");
+  background-size: cover;
+  cursor: pointer;
+}

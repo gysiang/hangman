@@ -29,13 +29,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.TEXT,
       },
-      winner_id: {
-        allowNull: true,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'users',
-          key: "id",
-        }
+      game_win: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       created_at: {
         allowNull: false,

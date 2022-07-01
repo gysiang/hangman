@@ -9,7 +9,6 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 app.use(express.static("public"));
 
-
 // Import DB
 const db = require("./models/index");
 
@@ -29,7 +28,7 @@ const UserRouter = require("./routers/userRouter");
 const gameRouter = new GameRouter(gamesController).router();
 const userRouter = new UserRouter(userController).router();
 
-app.use("/game",gameRouter);
+app.use("/game", gameRouter);
 app.use("/",userRouter);
 
 // get gameid of all the open games

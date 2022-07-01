@@ -30,13 +30,10 @@ const initGameModel = (sequelize, DataTypes) => {
         allowNull: false,
         type: DataTypes.TEXT,
       },
-      winner_id: {
-        allowNull: true,
-        type: DataTypes.INTEGER,
-        references: {
-          model: "users",
-          key: "id",
-        }
+      game_win: {
+        allowNull: false,
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,

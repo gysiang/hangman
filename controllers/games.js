@@ -79,7 +79,7 @@ class gameController {
       const data = {
         message: "okay",
         chances: JSON.stringify(game.chances),
-        dashlength: chosenWordLength,
+        dashlength: (chosenWordLength-2),
         definition: JSON.stringify(game.games[0].definition),
       }
       console.log(data);
@@ -154,19 +154,18 @@ class gameController {
   }
 
     async setWinner(req,res) {
-        const { gameID,  } = req.cookies;
-        const { resultID } = req.body;
-        console.log(resultID);
+        const { gameID } = req.cookies;
+        const { game_win } = req.body;
         const updateWinner = await this.model.update(
           {
-            winner_id: resultID,
+            game_win,
           },
           {
             where: {id:gameID }
           }
         );
-        console.log('updating game model with user id')
-        console.log(updateWinner);
+        console.log('updating game model with result')
+        res.send('success')
       }
 }
 module.exports = gameController;

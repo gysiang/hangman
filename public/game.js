@@ -1,6 +1,4 @@
 // const socket = io("http://localhost:8000/");
-
-
 // // receiving others moves
 // socket.on('move', ((data) => {
 //     console.log('I HAVE RECIEVED A Move!', data)
@@ -12,12 +10,12 @@
 const letterContainer = document.getElementById("letterContainer");
 const feedbackContainer = document.getElementById("feedbackContainer");
 const gameContainer = document.getElementById("gameContainer");
+const mainContainer = document.getElementById("mainContainer");
 const lineBreak = document.createElement('br');
 
 let rightGuesses = 0;
 
 const generateLoseGameContainer = async () => {
-    console.log('hello')
     const result = await axios.get("/game/word"); 
     console.log(result)
     gameContainer.innerHTML = "";
@@ -33,17 +31,26 @@ const generateLoseGameContainer = async () => {
     restartBtn.addEventListener("click", ()=>{
       window.location = "/game";
     })
+    const logoutBtn = document.createElement("btn");
+    logoutBtn.classList.add("button", "mx-2","pt-3","text-center");
+    logoutBtn.innerText='Log Out';
+    logoutBtn.addEventListener("click", async()=>{
+        const result = await axios.delete("/logout")
+        if (result.data = 'success'){
+          window.location ='/';
+        }
+    })
     gameContainer.append(lineBreak);
     gameContainer.append(resultHeader);
     gameContainer.append(lineBreak);
     gameContainer.append(answerHeader);
     gameContainer.append(lineBreak);
     gameContainer.append(restartBtn);
+    gameContainer.append(logoutBtn);
 };
 
 const generateWinGameContainer = async () => {
     const result = await axios.get("/game/word"); 
-    console.log(result)
     gameContainer.innerHTML = "";
     const resultHeader = document.createElement("h3");
     const answerHeader = document.createElement("h3");
@@ -53,16 +60,31 @@ const generateWinGameContainer = async () => {
     resultHeader.classList.add("font-normal");
     const restartBtn = document.createElement("btn");
     restartBtn.classList.add("button", "mx-2","pt-3","text-center");
-    restartBtn.innerText='Restart Game'
+    restartBtn.innerText='Restart Game';
     restartBtn.addEventListener("click", ()=>{
       window.location = "/game";
     })
+    const logoutBtn = document.createElement("btn");
+    logoutBtn.classList.add("button", "mx-2","pt-3","text-center");
+    logoutBtn.innerText='Log Out';
+    logoutBtn.addEventListener("click", async ()=>{
+        const result = await axios.delete("/logout")
+        if (result.data = 'success'){
+          window.location ='/';
+        }
+    })
+    const data = {game_win: true,}
+    console.log('saving win game result');
+    const postresult = await axios.put('/game/setWinner',  data);
+    if (postresult.data="success"){
     gameContainer.append(lineBreak);
     gameContainer.append(resultHeader);
     gameContainer.append(lineBreak);
     gameContainer.append(answerHeader);
     gameContainer.append(lineBreak);
     gameContainer.append(restartBtn);
+    gameContainer.append(logoutBtn);
+    }
 };
 
 const generateLetterButtons = ()=>{
@@ -97,10 +119,6 @@ const generateLetterButtons = ()=>{
           if (chancesLeft == 0){
             console.log('you lose')
             generateLoseGameContainer();
-            // const data = {
-            //   resultID: 0,
-            // }
-            // await axios.put('/game/setWinner', data)
           }
       } 
       if (checkLetter.data.result == true){
@@ -108,29 +126,27 @@ const generateLetterButtons = ()=>{
           feedbackContainer.innerHTML= "";
           feedbackContainer.append('You got it!');
         // check the wincount(global variable) add 1, 
-          rightGuesses +=1;
         let indexArray = checkLetter.data.index
         // select the right span from the id and replace it with the letter clicked
         indexArray.forEach((element) => {
+          rightGuesses +=1;
           let selectDash = document.getElementById(`${element}`)
-          console.log(selectDash);
+          // console.log(selectDash);
           selectDash.innerHTML=`${button.innerText}&nbsp;`;
-        })
+         })
+        }
         if (rightGuesses == dasheslength){
           generateWinGameContainer();
-          // const data = {
-          //     resultID: document.cookie.gameID,
-          // }
-          // console.log(data);
-          // console.log('saving user id as result');
-          // await axios.put('/game/setWinner',  data)
         }
-      } 
-    })
-    letterContainer.append(button);
-  }
-};
+      })
+        letterContainer.append(button);
+    }
+  };
+
 
 
 generateLetterButtons();
+
+
+
 
